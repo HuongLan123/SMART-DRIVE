@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname)));
 const dbPromise = open({
   filename: './data13.db',
   driver: sqlite3.Database,
@@ -183,7 +183,7 @@ app.get('/suggestions', async (req, res) => {
   }
 });
 app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname,'index.html'));
 });
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
