@@ -4,14 +4,10 @@ import express from 'express';
 import cors from 'cors';
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const app = express();
 app.use(cors());
-app.use(express.static(path.join(__dirname)));
+
 const dbPromise = open({
   filename: './data13.db',
   driver: sqlite3.Database,
@@ -182,9 +178,6 @@ app.get('/suggestions', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname,'index.html'));
-});
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
 
+const PORT = 3001;
+app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
